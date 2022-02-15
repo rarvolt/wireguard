@@ -1,5 +1,8 @@
 default_route: false
+wg_use_ppa_repo: true
 wg_private_ip: "{{ ansible_default_ipv4.address }}"
 wg_listen_port: "51820"
 wg_allowed_ips: "{% if default_route %}0.0.0.0/0,::/0{% endif %}"
 wg_download_path: "~/Downloads"
+wg_user_list:
+  user_1: { username: "user_1", private_ip: "10.0.0.11", default_route: yes, wg_dns_enabled: yes, remove: no }

@@ -9,7 +9,7 @@
 - name: Add wireguard repository
   apt_repository:
     repo: "ppa:wireguard/wireguard"
-    state: present
+    state: "{{ 'present' if wg_use_ppa_repo else 'absent' }}"
 
 - name: Install wireguard
   apt:
