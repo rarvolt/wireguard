@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Install YAMLlint
-      run: sudo apt install -y yamllint
-    - name: Linting YAML files
-      run: yamllint ${GITHUB_WORKSPACE}
+      - uses: actions/checkout@v2
+      - name: Install YAMLlint
+        run: sudo apt install -y yamllint
+      - name: Linting YAML files
+        run: yamllint ${GITHUB_WORKSPACE}

@@ -19,7 +19,7 @@
       then
         cd {{ wg_conf_dir.path }}/{{ item.value.username }}
         wg genkey | tee privatekey | wg pubkey > publickey
-    fi 
+    fi
     exit 0
   when: (item.value.remove == False)
   with_dict: "{{ wg_user_list }}"
@@ -40,7 +40,7 @@
 
 # Generate Wireguard server config
 # - debug:
-#     msg: "{{ item['content'] }}" 
+#     msg: "{{ item['content'] }}"
 #   loop: "{{ wg_user_publickey.results }}"
 #   when: (item.item.value.remove == False)
 
@@ -55,7 +55,7 @@
   notify: restart wg0
 
 - name: Start Wireguard server
-  systemd: 
+  systemd:
     name: "wg-quick@wg0"
     state: started
     enabled: yes
@@ -79,8 +79,8 @@
 #   when: (item.item.item.value.remove == False)
 
 - name: Fetch Wireguard user configs
-  fetch: 
+  fetch:
     src: "{{ wg_conf_dir.path }}/{{ item.item.item.value.username }}/wg0.conf"
-    dest: "{{ wg_download_path }}" 
+    dest: "{{ wg_download_path }}"
   loop: "{{ wg_user_profile.results }}"
   when: (item.item.item.value.remove == False)

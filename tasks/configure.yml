@@ -9,7 +9,9 @@
   shell: |
     if [ ! -f {{ wg_conf_dir.path }}/privatekey ]
      then
-      umask 077 && wg genkey | tee {{ wg_conf_dir.path }}/privatekey | wg pubkey > {{ wg_conf_dir.path }}/publickey
+      umask 077 && \
+      wg genkey | tee {{ wg_conf_dir.path }}/privatekey | \
+      wg pubkey > {{ wg_conf_dir.path }}/publickey
     fi
     exit 0
 
@@ -18,7 +20,7 @@
     src: "{{ wg_conf_dir.path }}/privatekey"
   register: wg_privatekey
 
-# - debug: 
+# - debug:
 #     msg: "{{ wg_privatekey['content'] }}"
 
 - name: Get wireguard public key
@@ -27,7 +29,7 @@
   register: wg_publickey
 
 - name: Get wireguard server public IPv4
-  uri: 
+  uri:
     url: "https://ipinfo.io/ip"
     remote_src: yes
     return_content: yes
